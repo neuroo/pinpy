@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Created: 8/04/2011
+  Last Modified: Thu Aug  4 09:21:37 EDT 2011
+-->
+<PinPyFunctions>
+	<PinPyFunction name="purple_ssl_read_wrapper">
+		<FunctionPrototype>
+			<FunctionName>purple_ssl_read</FunctionName>
+			<FunctionParameters>
+				<FunctionParameter id="0">
+					<FunctionParameterName>gsc</FunctionParameterName>
+					<FunctionParameterType>int</FunctionParameterType>
+				</FunctionParameter>
+				<FunctionParameter id="1">
+					<FunctionParameterName>data</FunctionParameterName>
+					<FunctionParameterType>char *</FunctionParameterType>
+				</FunctionParameter>
+				<FunctionParameter id="2">
+					<FunctionParameterName>len</FunctionParameterName>
+					<FunctionParameterType>int</FunctionParameterType>
+				</FunctionParameter>
+			</FunctionParameters>
+			<FunctionReturnType>int</FunctionReturnType>
+		</FunctionPrototype>
+		
+		<BeforeCall>
+			<PinPyActions>
+				<PinPyAction name="Logging before purple_ssl_read" sequence="1">
+					<PyCall module="sample" function="log">
+						<Message>purple_ssl_read -- BeforeCall</Message>
+					 </PyCall>
+				</PinPyAction>
+			</PinPyActions>
+		</BeforeCall>
+		
+		<AfterCall>
+			<PinPyActions>
+				<PinPyAction name="Logging after purple_ssl_read" sequence="1">
+					<PyCall module="sample" function="log">
+						<Message>purple_ssl_read -- AfterCall</Message>
+					 </PyCall>
+				</PinPyAction>
+			</PinPyActions>
+		</AfterCall>
+	</PinPyFunction>
+
+	<PinPyFunction name="purple_ssl_write_wrapper">
+		<FunctionPrototype>
+			<FunctionName>purple_ssl_write</FunctionName>
+			<FunctionParameters>
+				<FunctionParameter id="0">
+					<FunctionParameterName>gsc</FunctionParameterName>
+					<FunctionParameterType>int</FunctionParameterType>
+				</FunctionParameter>
+				<FunctionParameter id="1">
+					<FunctionParameterName>data</FunctionParameterName>
+					<FunctionParameterType>char *</FunctionParameterType>
+				</FunctionParameter>
+				<FunctionParameter id="2">
+					<FunctionParameterName>len</FunctionParameterName>
+					<FunctionParameterType>int</FunctionParameterType>
+				</FunctionParameter>
+			</FunctionParameters>
+			<FunctionReturnType>int</FunctionReturnType>
+		</FunctionPrototype>
+		
+		<BeforeCall>
+			<PinPyActions>
+				<PinPyAction name="Logging before purple_ssl_write" sequence="1">
+					<PyCall module="sample" function="log">
+						<Message>purple_ssl_write -- BeforeCall</Message>
+					 </PyCall>
+				</PinPyAction>
+			</PinPyActions>
+		</BeforeCall>
+		
+		<AfterCall>
+			<PinPyActions>
+				<PinPyAction name="Logging after purple_ssl_write" sequence="1">
+					<PyCall module="sample" function="log">
+						<Message>purple_ssl_write -- AfterCall</Message>
+					 </PyCall>
+				</PinPyAction>
+			</PinPyActions>
+		</AfterCall>
+	</PinPyFunction>
+
+</PinPyFunctions>

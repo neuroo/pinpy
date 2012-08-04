@@ -1,0 +1,22 @@
+# import these variables from the parent build script
+Import('env', 'sources')
+# set this to the path where you installed pin
+pin_path = "/opt/pin"
+
+env.Replace(CXX='g++')
+env.Replace(CC='g++')
+env.Replace(CPP='g++')
+env.Replace(LINK='g++')
+
+env.Replace(LIBPATH=["/usr/lib/",pin_path+"/Lib/",pin_path+"/ExtLib/",pin_path+"/extras/xed2-intel64/lib",pin_path+"/intel64/lib",pin_path+"/intel64/lib-ext"])
+env.Replace(CPPPATH=["#src","#src/pin","#src/python","/usr/include","/usr/include/libxml2","/usr/include/python2.7",pin_path+"/Include",pin_path+"/InstLib",pin_path+"/extras/xed2-intel64/include",pin_path+"/extras/components/include",pin_path+"/source/include",pin_path+"/source/include/gen"])
+
+env.Replace(CXXFLAGS="-g -Wall -O3 -fno-strict-aliasing -std=c++98 -Wno-unknown-pragmas -fomit-frame-pointer -DBIGARRAY_MULTIPLIER=1 -DUSING_XED -fno-stack-protector -DTARGET_IA32E -DHOST_IA32E -fPIC -DTARGET_LINUX")
+env.Replace(LINKFLAGS="-Wl,--hash-style=sysv -shared -Wl,-Bsymbolic -Wl,--version-script="+pin_path+"/source/include/pintool.ver")
+
+env.Replace(LIBS=["-lpin","-lxed","-ldwarf","-lelf","-ldl","-lpython2.7","-lboost_python","-lxml2"])
+
+env.Program(target="pinpy", source=sources)
+env.SharedLibrary(target="pinpy", source=sources)
+
+Return("env")

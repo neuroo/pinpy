@@ -1,0 +1,33 @@
+# import these variables from the parent build script
+Import('env', 'sources', 'target_name')
+import os
+BUILD_SHARED = True
+
+env = Environment(ENV = {'PATH' : os.environ['PATH']})
+env['ENV']['TMP'] = os.environ['TMP']
+env.Replace(CXX='cl')
+env.Replace(CC='cl')
+env.Replace(CPP='cl')
+env.Replace(LINK='link')
+
+# Append lib specifics for windows
+env.Replace(LIBPATH=['C:\\Program Files\\boost_1_47\lib', 'C:\\src\\libxml2-2.7.8.win32\\lib', 'C:\\src\\iconv-1.9.2.win32\\lib', 'C:\\src\\pin-2.10\\ia32\\lib', 'C:\\src\\pin-2.10\\ia32\\lib-ext', 'C:\\src\\pin-2.10\\intel64\\lib-ext','C:\\src\\pin-2.10\\extras\\xed2-ia32\\lib', 'C:\\src\\pin-2.10\\extras\\xed2-intel65\\lib', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\lib', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.1\\Lib', 'C:\\Python27\\libs'])
+
+#C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\lib', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\Lib'
+
+# Include specifics for windows
+env.Replace(CPPPATH=['C:\\Python27\\include', 'C:\\Program Files\\boost_1_47', 'C:\\src\\libxml2-2.7.8.win32\\include', 'C:\\src\\iconv-1.9.2.win32\\include', 'C:\\src\\pin-2.10\\source\\include', 'C:\\src\\pin-2.10\\source\\include\\gen', 'C:\\src\\pin-2.10\\source\\tools\\InstLib', 'C:\\src\\pin-2.10\\extras\\xed2-ia32\\include', 'C:\\src\\pin-2.10\\extras\\components\\include', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.1\\Include', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\include', '#src'])
+
+env.Replace(CXXFLAGS=["/MT" ,"/EHs-" ,"/EHa-" ,"/wd4530" ,"/DTARGET_WINDOWS" ,"/DBIGARRAY_MULTIPLIER=1" ,"/DUSING_XED" ,"/DBOOST_PYTHON_STATIC_LIB" ,"/D_CRT_SECURE_NO_DEPRECATE" ,"/D_SECURE_SCL=0" ,"/nologo" ,"/Gy" ,"/O2" , "/DTARGET_IA32" ,"/DHOST_IA32"])
+ 
+if BUILD_SHARED:
+	env.Replace(LINKFLAGS="/EXPORT:main /NOLOGO /INCREMENTAL:NO /MACHINE:x86 /ENTRY:Ptrace_DllMainCRTStartup@12 /BASE:0x55000000")
+	env.Replace(LIBS=["pin","libxed", "libcpmt","libcmt","pinvm", "kernel32", "ntdll-32", "iconv", "libxml2", "python27", "libboost_python-vc90-mt-s-1_47"])
+else:
+	env.Replace(LIBS=["libxml2"])
+ 
+if BUILD_SHARED:
+	env.SharedLibrary(target=target_name, source=sources)
+else:
+	env.Program(target=target_name, source=sources)
+ 

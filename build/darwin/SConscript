@@ -1,0 +1,23 @@
+# import these variables from the parent build script
+# this is obivously for testing, pin doesn't work on OSX
+Import('env', 'sources', 'target_name')
+
+BUILD_SHARED = False
+
+env.Replace(CXX='clang++')
+env.Replace(CC='clang++')
+env.Replace(CPP='clang++')
+env.Replace(LINK='clang++')
+
+env.Replace(LIBPATH=["/opt/local/lib/", "/opt/local/lib", "/opt/local/Library/Frameworks/Python.framework/Versions/Current/lib"])
+env.Replace(CPPPATH=["/opt/local/include/libxml2", "/opt/local/include", "/opt/local/Library/Frameworks/Python.framework/Versions/Current/include/python2.7", "#src"])
+
+env.Replace(CXXFLAGS="-g -Wall -O2 -fno-strict-aliasing -std=c++98 -fPIC")
+env.Replace(LINKFLAGS="-g -Wl,-all_load")
+
+env.Replace(LIBS=["xml2", "boost_python", "python2.7"])
+
+if not BUILD_SHARED:
+	env.Program(target=target_name, source=sources)
+else:
+	env.SharedLibrary(target=target_name, source=sources)
